@@ -80,6 +80,10 @@ fladle {
     autoGoogleLogin = true
     testShards = 5
     smartFlankGcsPath = "gs://tmp_flank/flank/test_app_android.xml"
+    additionalTestApks = [
+            new kotlin.Pair<String, String>("../path/to/app.apk", "../path/to/test.apk"),
+            new kotlin.Pair<String, String>("../path/to/app-module.apk", "../path/to/app-test-module.apk")
+    ]
     configs {
         oranges {
             useOrchestrator = false
@@ -180,11 +184,35 @@ Keeps the full path of downloaded files from a Google Cloud Storage bucket. Requ
 ### resultsDir
 The name of a unique Google Cloud Storage object within the results bucket where raw test results will be stored. The default is a timestamp with a random suffix.
 
+### additionalTestApks
+A list of pairs of paths to additional app apks and test apks. See [Flank PR](https://github.com/TestArmada/flank/pull/542) for more info.
+
+<details>
+<summary>Groovy</summary>
+<br>
+``` groovy
+    additionalTestApks = [
+            new kotlin.Pair<String, String>("../path/to/app.apk", "../path/to/test.apk"),
+            new kotlin.Pair<String, String>("../path/to/app-module.apk", "../path/to/app-test-module.apk")
+    ]
+```
+</details>
+<details open>
+<summary>Kotlin</summary>
+<br>
+``` kotlin
+    additionalTestApks = listOf(
+            "../path/to/app.apk" to "../path/to/test.apk",
+            "../path/to/app-module.apk" to "../path/to/app-test-module.apk"
+    )
+```
+</details>
+
 ---
 ### Error APK file not found
 The app APK and the instrumentation apk are expected to have already been generated before calling runFlank.
 If you would like the flank task to automatically create the APKs, you can add the following to your application's build.gradle.
-```
+``` groovy
 afterEvaluate {
     tasks.named("execFlank").configure {
         dependsOn("assembleDebugAndroidTest")

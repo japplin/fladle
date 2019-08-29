@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2
+ * Add support for additional test apks.
+ * Bump flank version to 7.0.2
+
 ## 0.8.1
 Add support for resultsDir. [PR](https://github.com/runningcode/fladle/pull/80)
 

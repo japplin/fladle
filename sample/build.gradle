@@ -1,3 +1,5 @@
+import kotlin.Pair
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.osacky.fladle'
@@ -34,6 +36,10 @@ fladle {
             [ "model": "Nexus5", "version": "23" ]
     ]
     smartFlankGcsPath = "gs://test-lab-yr9w6qsdvy45q-iurp80dm95h8a/flank/test_app_android.xml"
+    additionalTestApks = [
+            new Pair<String, String>("../path/to/app.apk", "../path/to/test.apk"),
+            new Pair<String, String>("../path/to/app-module.apk", "../path/to/app-test-module.apk")
+    ]
     configs {
         oranges {
             useOrchestrator = false
@@ -43,7 +49,6 @@ fladle {
             flakyTestAttempts = 3
         }
     }
-    flakyTestAttempts 1
 }
 
 dependencies {
